@@ -188,7 +188,7 @@
 <script>
 //Add your images, we'll set the path in the next step
     var images = ['358010RM5ETBM3O361WHJGD5EDBVXM', '3907X2AHF05XG3OAW02PNYURF0EP2T', '3634BBTX0OUP0BDI70RCYKN4233IFZ', '3634BBTX0OUP0BDI70RCYKN42TWFI5'];
-    var images_json = require('./gallery/bird_description.json');
+    // var images_json = require('./gallery/bird_description.json');
 //Build the img, then do a bit of maths to randomize load and append to a div. Add a touch off css to fade them badboys in all sexy like.
     $('<img class="fade-in" src="gallery/birds/' + images[Math.floor(Math.random() * images.length)] + '.png">').appendTo('#img_1');
     $('<img class="fade-in" src="gallery/birds/' + images[Math.floor(Math.random() * images.length)] + '.png">').appendTo('#img_2');
