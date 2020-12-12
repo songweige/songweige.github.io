@@ -10,18 +10,23 @@
 <link rel="stylesheet" href="./gallery_assets/style(1).css">
 <link rel="stylesheet" href="./gallery_assets/style(2).css">
 <link rel="stylesheet" href="./gallery_assets/mbr-additional.css" type="text/css">
+<style>
+.fade-in{
+  -webkit-animation: fade-in 2s ease;
+  -moz-animation: fade-in ease-in-out 2s both;
+  -ms-animation: fade-in ease-in-out 2s both;
+  -o-animation: fade-in ease-in-out 2s both;
+  animation: fade-in 2s ease;
+  visibility: visible;
+  -webkit-backface-visibility: hidden;
+}
+@-webkit-keyframes fade-in{0%{opacity:0;} 100%{opacity:1;}}
+@-moz-keyframes fade-in{0%{opacity:0} 100%{opacity:1}}
+@-o-keyframes fade-in{0%{opacity:0} 100%{opacity:1}}
+@keyframes fade-in{0%{opacity:0} 100%{opacity:1}}
+</style>
 </head>
-<body><section id="top-1" class="engine"><a href="https://mobirise.info/">Mobirise</a> Mobirise v4.3.5</section>
-
-<!-- <section class="header11 cid-qv5CDUA98n" data-rv-view="10115">    
-    <div class="container align-left">
-        <div class="media-container-column mbr-white col-md-12">
-            <h1 class="mbr-section-title py-3 mbr-fonts-style display-2">Creative Birds Gallery</h1>
-            <div class="mbr-section-btn py-4"><a class="btn btn-md btn-black display-4" href="https://mobirise.com/mobirise-free-templates.zip">Creative Creature Gallery</a>
-                    <a class="btn btn-md btn-black-outline display-4" href="http://doodlergan.cloudcv.org/creative_bird">DoodlerGAN Demo</a></div>
-        </div>
-    </div>
-</section> -->
+<body>
 
 <section class="mbr-section content4 cid-qxVpIJ8WtD" id="content4-na" data-rv-view="8245">
     <div class="container">
@@ -32,7 +37,7 @@
         </div>
         <div class="media-container-row">
             <div class="title col-12 col-md-8">
-                <div class="align-center mbr-section-btn py-4"><a class="btn btn-md btn-black display-4" href="https://mobirise.com/mobirise-free-templates.zip">Creative Creature Gallery</a>
+                <div class="align-center mbr-section-btn py-4"><a class="btn btn-md btn-black display-4" href="https://mobirise.com/mobirise-free-templates.zip">Creative Creatures Gallery</a>
                     <a class="btn btn-md btn-black display-4" href="http://doodlergan.cloudcv.org/creative_bird">DoodlerGAN Demo</a></div>
             </div>
         </div>
@@ -44,8 +49,7 @@
         <div class="media-container-row">
             <div class="card p-3 col-12 col-md-6 col-lg-3">
                 <div class="card-wrapper">
-                    <div class="card-img">
-                        <img src="gallery/birds/358010RM5ETBM3O361WHJGD5DK7XVX.png" alt="Responsive Hotel Template – Free Download" title="" media-simple="true">
+                    <div class="card-img" id="img_1">
                     </div>
                     <div class="card-box">
                         <h4 class="card-title pb-3 mbr-fonts-style display-7">
@@ -56,8 +60,7 @@
 
             <div class="card p-3 col-12 col-md-6 col-lg-3">
                 <div class="card-wrapper">
-                    <div class="card-img">
-                        <img src="gallery/birds/358010RM5ETBM3O361WHJGD5DK7XVX.png" alt="Bootstrap Landing Page Template – Free Download" title="" media-simple="true">
+                    <div class="card-img" id="img_2">
                     </div>
                     <div class="card-box ">
                         <h4 class="card-title pb-3 mbr-fonts-style display-7">
@@ -68,8 +71,7 @@
 
             <div class="card p-3 col-12 col-md-6 col-lg-3">
                 <div class="card-wrapper">
-                    <div class="card-img">
-                        <img src="gallery/birds/358010RM5ETBM3O361WHJGD5DK7XVX.png" alt="HTML News Template – Free Download" title="" media-simple="true">
+                    <div class="card-img" id="img_3">
                     </div>
                     <div class="card-box">
                         <h4 class="card-title pb-3 mbr-fonts-style display-7">
@@ -80,8 +82,7 @@
 
             <div class="card p-3 col-12 col-md-6 col-lg-3">
                 <div class="card-wrapper">
-                    <div class="card-img">
-                        <img src="gallery/birds/358010RM5ETBM3O361WHJGD5DK7XVX.png" alt="HTML Profile Template – Free Download" title="" media-simple="true">
+                    <div class="card-img" id="img_4">
                     </div>
                     <div class="card-box">
                         <h4 class="card-title pb-3 mbr-fonts-style display-7">
@@ -91,8 +92,7 @@
             </div>
             <div class="card p-3 col-12 col-md-6 col-lg-3">
                 <div class="card-wrapper">
-                    <div class="card-img">
-                        <img src="gallery/birds/358010RM5ETBM3O361WHJGD5DK7XVX.png" alt="HTML Profile Template – Free Download" title="" media-simple="true">
+                    <div class="card-img" id="img_5">
                     </div>
                     <div class="card-box">
                         <h4 class="card-title pb-3 mbr-fonts-style display-7">
@@ -102,8 +102,7 @@
             </div>
             <div class="card p-3 col-12 col-md-6 col-lg-3">
                 <div class="card-wrapper">
-                    <div class="card-img">
-                        <img src="gallery/birds/358010RM5ETBM3O361WHJGD5DK7XVX.png" alt="HTML Profile Template – Free Download" title="" media-simple="true">
+                    <div class="card-img" id="img_6">
                     </div>
                     <div class="card-box">
                         <h4 class="card-title pb-3 mbr-fonts-style display-7">
@@ -117,8 +116,7 @@
         <div class="media-container-row">
             <div class="card p-3 col-12 col-md-6 col-lg-3">
                 <div class="card-wrapper">
-                    <div class="card-img">
-                        <img src="gallery/birds/358010RM5ETBM3O361WHJGD5DK7XVX.png" alt="Responsive Hotel Template – Free Download" title="" media-simple="true">
+                    <div class="card-img" id="img_7">
                     </div>
                     <div class="card-box">
                         <h4 class="card-title pb-3 mbr-fonts-style display-7">
@@ -129,8 +127,7 @@
 
             <div class="card p-3 col-12 col-md-6 col-lg-3">
                 <div class="card-wrapper">
-                    <div class="card-img">
-                        <img src="gallery/birds/358010RM5ETBM3O361WHJGD5DK7XVX.png" alt="Bootstrap Landing Page Template – Free Download" title="" media-simple="true">
+                    <div class="card-img" id="img_8">
                     </div>
                     <div class="card-box ">
                         <h4 class="card-title pb-3 mbr-fonts-style display-7">
@@ -141,8 +138,7 @@
 
             <div class="card p-3 col-12 col-md-6 col-lg-3">
                 <div class="card-wrapper">
-                    <div class="card-img">
-                        <img src="gallery/birds/358010RM5ETBM3O361WHJGD5DK7XVX.png" alt="HTML News Template – Free Download" title="" media-simple="true">
+                    <div class="card-img" id="img_9">
                     </div>
                     <div class="card-box">
                         <h4 class="card-title pb-3 mbr-fonts-style display-7">
@@ -153,8 +149,7 @@
 
             <div class="card p-3 col-12 col-md-6 col-lg-3">
                 <div class="card-wrapper">
-                    <div class="card-img">
-                        <img src="gallery/birds/358010RM5ETBM3O361WHJGD5DK7XVX.png" alt="HTML Profile Template – Free Download" title="" media-simple="true">
+                    <div class="card-img" id="img_10">
                     </div>
                     <div class="card-box">
                         <h4 class="card-title pb-3 mbr-fonts-style display-7">
@@ -164,8 +159,7 @@
             </div>
             <div class="card p-3 col-12 col-md-6 col-lg-3">
                 <div class="card-wrapper">
-                    <div class="card-img">
-                        <img src="gallery/birds/358010RM5ETBM3O361WHJGD5DK7XVX.png" alt="HTML Profile Template – Free Download" title="" media-simple="true">
+                    <div class="card-img" id="img_11">
                     </div>
                     <div class="card-box">
                         <h4 class="card-title pb-3 mbr-fonts-style display-7">
@@ -175,8 +169,7 @@
             </div>
             <div class="card p-3 col-12 col-md-6 col-lg-3">
                 <div class="card-wrapper">
-                    <div class="card-img">
-                        <img src="gallery/birds/358010RM5ETBM3O361WHJGD5DK7XVX.png" alt="HTML Profile Template – Free Download" title="" media-simple="true">
+                    <div class="card-img" id="img_12">
                     </div>
                     <div class="card-box">
                         <h4 class="card-title pb-3 mbr-fonts-style display-7">
@@ -187,3 +180,29 @@
         </div>
     </div>
 </section>
+
+
+<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js'></script>
+
+<!--New images on load -->
+<script>
+//Add your images, we'll set the path in the next step
+    var images = ['358010RM5ETBM3O361WHJGD5EDBVXM', '3907X2AHF05XG3OAW02PNYURF0EP2T', '3634BBTX0OUP0BDI70RCYKN4233IFZ', '3634BBTX0OUP0BDI70RCYKN42TWFI5'];
+    var images_json = require('./gallery/bird_description.json');
+//Build the img, then do a bit of maths to randomize load and append to a div. Add a touch off css to fade them badboys in all sexy like.
+    $('<img class="fade-in" src="gallery/birds/' + images[Math.floor(Math.random() * images.length)] + '.png">').appendTo('#img_1');
+    $('<img class="fade-in" src="gallery/birds/' + images[Math.floor(Math.random() * images.length)] + '.png">').appendTo('#img_2');
+    $('<img class="fade-in" src="gallery/birds/' + images[Math.floor(Math.random() * images.length)] + '.png">').appendTo('#img_3');
+    $('<img class="fade-in" src="gallery/birds/' + images[Math.floor(Math.random() * images.length)] + '.png">').appendTo('#img_4');
+    $('<img class="fade-in" src="gallery/birds/' + images[Math.floor(Math.random() * images.length)] + '.png">').appendTo('#img_5');
+    $('<img class="fade-in" src="gallery/birds/' + images[Math.floor(Math.random() * images.length)] + '.png">').appendTo('#img_6');
+    $('<img class="fade-in" src="gallery/birds/' + images[Math.floor(Math.random() * images.length)] + '.png">').appendTo('#img_7');
+    $('<img class="fade-in" src="gallery/birds/' + images[Math.floor(Math.random() * images.length)] + '.png">').appendTo('#img_8');
+    $('<img class="fade-in" src="gallery/birds/' + images[Math.floor(Math.random() * images.length)] + '.png">').appendTo('#img_9');
+    $('<img class="fade-in" src="gallery/birds/' + images[Math.floor(Math.random() * images.length)] + '.png">').appendTo('#img_10');
+    $('<img class="fade-in" src="gallery/birds/' + images[Math.floor(Math.random() * images.length)] + '.png">').appendTo('#img_11');
+    $('<img class="fade-in" src="gallery/birds/' + images[Math.floor(Math.random() * images.length)] + '.png">').appendTo('#img_12');
+</script>
+
+</body>
+</html>
