@@ -1,0 +1,668 @@
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./jsapi" type="text/javascript"></script> 
+<script type="text/javascript">google.load("jquery", "1.3.2");</script>
+<link href="./assets/foundation.css" rel="stylesheet" type="text/css">
+<link href="./assets/twentytwenty.css" rel="stylesheet" type="text/css">
+<script src="./assets/jquery-3.1.0.min.js.download"></script>
+<link rel="stylesheet" href="./assets/bootstrap.min.css">
+<script src="./assets/bootstrap.min.js.download"></script>
+<title>Long Video Generation with Time-Agnostic VQGAN and Time-Sensitive Transformer</title>
+
+<style type="text/css">
+	body {
+		font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+		font-weight:300;
+		font-size:22px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 1300px;
+	}
+	
+	h1 {
+		font-size:32px;
+		font-weight:300;
+	}
+
+	h3 {
+		font-size:22px;
+		font-weight:300;
+	}
+
+	h5 {
+		font-size:16px;
+		font-weight:300;
+	}
+
+	sup {
+	    line-height: 0;
+	    font-size: 0.83em;
+	    vertical-align: super;
+	}
+
+	p { white-space: pre-wrap; font-size: 16px;}
+	
+	.disclaimerbox {
+		background-color: #eee;		
+		border: 1px solid #eeeeee;
+		border-radius: 10px ;
+		-moz-border-radius: 10px ;
+		-webkit-border-radius: 10px ;
+		padding: 20px;
+	}
+
+	video.header-vid {
+		height: 140px;
+		border: 1px solid black;
+		border-radius: 10px ;
+		-moz-border-radius: 10px ;
+		-webkit-border-radius: 10px ;
+	}
+	
+	img.header-img {
+		height: 140px;
+		border: 1px solid black;
+		border-radius: 10px ;
+		-moz-border-radius: 10px ;
+		-webkit-border-radius: 10px ;
+	}
+	
+	img.rounded {
+		border: 1px solid #eeeeee;
+		border-radius: 10px ;
+		-moz-border-radius: 10px ;
+		-webkit-border-radius: 10px ;
+	}
+	
+	a:link,a:visited
+	{
+		color: #1367a7;
+		text-decoration: none;
+	}
+	a:hover {
+		color: #208799;
+	}
+
+	a:hover {
+		color: #208799;
+	}
+	
+	td.dl-link {
+		height: 160px;
+		text-align: center;
+		font-size: 22px;
+	}
+	
+
+	table td {
+ 		 font-size: 18px;
+	}	
+
+	table th {
+		font-size: 22px;
+	}
+
+	.layered-paper-big { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+		box-shadow:
+		0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
+		5px 5px 0 0px #fff, /* The second layer */
+		5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
+		10px 10px 0 0px #fff, /* The third layer */
+		10px 10px 1px 1px rgba(0,0,0,0.35), /* The third layer shadow */
+		15px 15px 0 0px #fff, /* The fourth layer */
+		15px 15px 1px 1px rgba(0,0,0,0.35), /* The fourth layer shadow */
+		20px 20px 0 0px #fff, /* The fifth layer */
+		20px 20px 1px 1px rgba(0,0,0,0.35), /* The fifth layer shadow */
+		25px 25px 0 0px #fff, /* The fifth layer */
+		25px 25px 1px 1px rgba(0,0,0,0.35); /* The fifth layer shadow */
+		margin-left: 10px;
+		margin-right: 45px;
+	}
+
+	.paper-big { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+		box-shadow:
+		0px 0px 1px 1px rgba(0,0,0,0.35); /* The top layer shadow */
+
+		margin-left: 10px;
+		margin-right: 45px;
+	}
+
+
+	.layered-paper { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+		box-shadow:
+		0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
+		5px 5px 0 0px #fff, /* The second layer */
+		5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
+		10px 10px 0 0px #fff, /* The third layer */
+		10px 10px 1px 1px rgba(0,0,0,0.35); /* The third layer shadow */
+		margin-top: 5px;
+		margin-left: 10px;
+		margin-right: 30px;
+		margin-bottom: 5px;
+	}
+	
+	.vert-cent {
+		position: relative;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+	
+	hr
+	{
+		border: 0;
+		height: 1px;
+		background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+	}
+</style>
+
+
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-75863369-6');
+	</script>
+<style id="bv-wavy-color-style">.memorize_new_word{text-decoration-color: #ff906e;}</style></head>
+
+<body data-new-gr-c-s-check-loaded="14.1052.0" data-gr-ext-installed="">
+	<br>
+	<center>
+		<span style="font-size:36px">Long Video Generation with 
+			<br>
+			 Time-Agnostic VQGAN and Time-Sensitive Transformer
+			<br>
+		</span>
+		<div style="line-height:80%;">
+		    <br>
+		</div>	
+		<span style="font-size:24px">
+			<table align=center width=680px height=40px>
+				<tr>
+					<td align=center width=140px>
+						<center>
+							<span style="font-size:20px; text-align: center"><a href="https://songweige.github.io/">Songwei Ge</a><sup>1</sup></span>
+						</center>
+					</td>
+					<td align=center width=140px>
+						<center>
+							<span style="font-size:20px; text-align: center"><a href="">Thomas Hayes</a><sup>2</sup></span>
+						</center>
+					</td>
+					<td align=center width=140px>
+						<center>
+							<span style="font-size:20px; text-align: center"><a href="https://ai.facebook.com/people/harry-yang/">Harry Yang</a><sup>2</sup></span>
+						</center>
+					</td>
+					<td align=center width=140px>
+						<center>
+							<span style="font-size:20px; text-align: center"><a href="https://xiyinmsu.github.io/">Xi Yin</a><sup>2</sup></span>
+						</center>
+					</td>
+				</tr>
+			</table>
+			<table align=center width=680px>
+				<tr>
+					<td align=center width=140px>
+						<center>
+							<span style="font-size:20px; text-align: center"><a href="https://ai.facebook.com/people/guan-pang/">Guan Pang</a><sup>2</sup></span>
+						</center>
+					</td>
+					<td align=center width=140px>
+						<center>
+							<span style="font-size:20px; text-align: center"><a href="http://www.cs.umd.edu/~djacobs/">David Jacobs</a><sup>1</sup></span>
+						</center>
+					</td>
+					<td align=center width=140px>
+						<center>
+							<span style="font-size:20px; text-align: center"><a href="https://jbhuang0604.github.io/">Jia-Bin Huang</a><sup>1,2</sup></span>
+						</center>
+					</td>
+					<td align=center width=140px>
+						<center>
+							<span style="font-size:20px; text-align: center"><a href="https://faculty.cc.gatech.edu/~parikh/">Devi Parikh</a><sup>2,3</sup></span>
+						</center>
+					</td>
+				</tr>
+			</table>
+		</span>
+
+		<div style="line-height:60%;">
+		    <br>
+		</div>	
+		<center>
+			<table align=center width=620px>
+				<tr>
+					<td align=center width=260px>
+						<center>
+							<span style="font-size:16px; text-align: center"><sup>1</sup> University of Maryland, College Park</span>
+						</center>
+					</td>
+					<td align=center width=130px>
+						<center>
+							<span style="font-size:16px; text-align: center"><sup>2</sup> Meta AI Research</span>
+						</center>
+					</td>
+					<td align=center width=120px>
+						<center>
+							<span style="font-size:16px; text-align: center"><sup>3</sup> Georgia Tech</span>
+						</center>
+					</td>
+				</tr>
+			</table>
+		</center>
+	<br>
+	<center>
+		<table align="center" width="1250px">
+			<tbody><tr>
+				<td align="center">
+				<span style="font-size:16px; text-align: center">* Please use the latest version of Chrome to watch the videos. Some of the videos may not be played correctly in other web browsers such as Firefox.</span>
+				</td>
+			</tr>
+		</tbody></table>
+	</center>
+	<hr>
+	<div style="line-height:60%;">
+	    <br>
+	</div>	
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
+		<a class="navbar-brand js-scroll-trigger" href="#page-top">Results Navigation:</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+		</button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#uncond-long">Unconditional+Long</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#cond-long">Conditional+Long</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#uncond-short">Unconditional+Short</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#manipulation">Video Manipulation</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#abalation">Abaltion w/ Zero Padding</a>
+            </li>
+          </ul>
+        </div>
+    </nav>
+	<div style="line-height:60%;">
+	    <br>
+	</div>	
+<section id="uncond-long" class="bg-light">
+<center>
+	<br>
+	<center><h1>Unconditional / Class-Conditional Long Video Generation Results </h1></center>
+	<div class="large-12 columns">
+	<h5><center>Please select below to see randomly selected results of different methods on different datasets</center></h5>
+	</div>
+	<div class="large-12 columns">
+	<h5><center>Each video contains 1024 frames of 128x128 resolution and is played by 8 fps in the first 2 seconds and 32 fps afterward. </center></h5>
+	</div>
+	<br>
+	<br>
+	<hr>
+	<br>
+	<div class="container">
+		<div class="row">
+			<div class=" mx-auto">
+				<div class="well well-sm">
+					<form class="form-inline">
+						<div class="form-group">
+							<label for="dataset-select">Dataset:&nbsp;</label>
+							<select class="form-control" id="dataset-select" oninput="ChangeDataset();">
+								<option value="ucf101 1">[UCF-101 (Soomro et al. 2015)]</option>
+								<option value="sky 2">[Sky Time-lapse (Xiong al. 2018)]</option>
+								<option value="taichi 3">[Taichi-HD (Siarohin al. 2019)]</option>
+							</select>
+						</div>
+					</form>
+					<h3 align="left"><strong>Method:&nbsp;</strong></h3>
+					<nav class="nav nav-tabs" id="current-view-ul">
+						<a class="flex-sm-fill text-sm-center nav-link active" id="tab0" href="javascript: void(0);" onclick="ChangeCurrentView(0);"><h5>[DIGAN (Yu et al. 2022)]</h5></a>
+						<a class="flex-sm-fill text-sm-center nav-link" id="tab1" href="javascript: void(0);" onclick="ChangeCurrentView(1);"><h5>[MoCoGAN-HD (Tian et al. 2021)]</h5></a>
+						<a class="flex-sm-fill text-sm-center nav-link" id="tab2" href="javascript: void(0);" onclick="ChangeCurrentView(2);"><h5>[CCVS (Moing et al. 2021)]</h5></a>
+						<a class="flex-sm-fill text-sm-center nav-link" id="tab3" href="javascript: void(0);" onclick="ChangeCurrentView(3);"><h5>[TATS-base (Ours)]</h5></a>
+						<a class="flex-sm-fill text-sm-center nav-link" id="tab4" href="javascript: void(0);" onclick="ChangeCurrentView(4);"><h5>[TATS-hierarchical (Ours)]</h5></a>
+					</nav>
+				</div>
+				<br>
+				<center><h5 id="dataset_link"><a href="https://www.crcv.ucf.edu/data/UCF101.php">[UCF-101 (Soomro et al. 2012)] dataset link</a></h5></center>
+				<center><h5 id="method_author">Sihyun Yu, Jihoon Tack, Sangwoo Mo, Hyunsu Kim, Junho Kim, Jung-Woo Ha, and Jinwoo Shin</h5></center>
+				<center><h5 id="method_title" style="font-weight:bold">Generating Videos with Dynamics-aware Implicit Generative Adversarial Networks</h5></center>
+				<center><h5 id="method_publication">ICLR, 2022</h5></center>
+				<center><h5 id="code_link"><a href='https://sihyun-yu.github.io/digan/'>[DIGAN (Yu et al. 2022)] code link</a></h5></center>
+	    		<br>
+			</div>
+			<div class="large-12 columns" style="margin-top: 0.1em" id="output_canvas">
+			  <div class="mx-auto">
+                <video id="output_video" width="1000" onended="this.currentTime = 0; this.play();" controls="" autoplay="" muted="">				
+				    <source src="./results/ucf101/ucf101_long_1024_digan_shown.mp4" type="video/mp4">
+				</video>
+			  </div>
+			</div>
+		</div>
+	</div>
+</center>
+<br>
+<br>
+<br>
+</section>
+<section id="cond-long">
+<br>
+<br>
+<center>
+	<center><h1>Conditional Long Video Generation Results </h1></center>
+	<div class="large-12 columns">
+	<h5><center>Text- and audio-conditioned video generation results with 1024 frames on the MUGEN (fps=15, resolution=256x256) and AudioSet-Drum datasets (fps=30, resolution=64x64). </center></h5>
+	</div>
+	<br>
+	<hr>
+	<br>
+    <table align = "center" width="840px">
+        <tr>
+            <td>
+            	<video width="400" height="435" onended="this.currentTime = 0; this.play();" controls="" autoplay="" muted="">
+                	<source src="./results/mugen/mugen_long_1024_shown.mp4" type="video/mp4">
+                </video>
+            </td>
+            <td><video width="400" height="435" controls="" controlslist="nodownload">
+               <source src="./results/mugen/mugen_long_1024_shown2.mp4" type="video/mp4">
+              </video>
+            </td>
+        </tr>
+    </table>
+	<br>
+	<br>
+    <table align = "center" width="840px">
+        <tr>
+            <td>
+            	<video width="400" height="114" controls="" controlslist="nodownload">
+                	<source src="./results/drum/drum_long_1024_shown.mp4" type="video/mp4">
+                </video>
+            </td>
+            <td><video width="400" height="114" controls="" controlslist="nodownload">
+               <source src="./results/drum/drum_long_1024_shown2.mp4" type="video/mp4">
+              </video>
+            </td>
+        </tr>
+        <tr>
+            <td width="100" valign="middle" halign="middle" align="center">
+                Left: real video. Right: synthetic video.
+            </td>
+            <td width="100" valign="middle" halign="middle" align="center">
+                Left: real video. Right: synthetic video.
+            </td>
+        </tr>
+    </table>
+</center>
+<br>
+<br>
+</section>
+<section id="uncond-short" class="bg-light">
+<br>
+<br>
+<center>
+	<center><h1>Diverse Short Video Generation Results </h1></center>
+	<div class="large-12 columns">
+	<h5><center>Randomly selected 16-frame videos with 128x128 resolution and 8 fps generated by TATS-base on different datasets. </center></h5>
+	</div>
+	<br>
+	<hr>
+    <table align = "center" width="840px">
+        <tr>
+            <td width="350" valign="middle" halign="middle" align="center">
+                UCF-101
+            </td>
+            <td width="350" valign="middle" halign="middle" align="center">
+                Sky Time-lapse
+            </td>
+            <td width="350" valign="middle" halign="middle" align="center">
+                TaiChi-HD
+            </td>
+        </tr>
+        <tr>
+            <td><video width="350" height="350" controls="" controlslist="nodownload">
+                <source src="./results/ucf101/ucf101_short_diversity_shown.mp4" type="video/mp4">
+              </video>
+            </td>
+            <td><video width="350" height="350" controls="" style="padding-left: 10px;" controlslist="nodownload">
+                <source src="./results/sky/sky_short_diversity_shown.mp4" type="video/mp4">
+              </video>
+            </td>
+            <td><video width="350" height="350" controls="" style="padding-left: 10px;" controlslist="nodownload">
+                  <source src="./results/taichi/taichi_short_diversity_shown.mp4" type="video/mp4">
+                </video>
+            </td>
+        </tr>
+    </table>
+</center>
+<br>
+<br>
+</section>
+<section id="manipulation">
+<br>
+<br>
+<center>
+	<table align = "center">
+	<center><h1>Text-Conditioned Video Manipulation </h1></center>
+	<div class="large-12 columns">
+	<h5><center><span style="color: dodgerblue;">Real</span> videos from the MUGEN dataset and <span style="color: orangered;">manipulated</span> videos generated by conditioning on the modified texts and the first 4 frames. </center></h5>
+	</div>
+	<br>
+	<hr>
+	<br>
+		<tr>
+            <td align="left" style="padding-left: 3px;"><video width="200" height="200" controls="" controlslist="nodownload" style="border:1.5px solid dodgerblue;">
+            	<source src="./results/mugen/manipulation/groundtruth_6228.mp4" type="video/mp4">
+              </video>
+            </td>
+            <td align="left" style="padding-left: 3px;"><video width="200" height="200" controls="" controlslist="nodownload" style="border:1.5px solid orangered;">
+                <source src="./results/mugen/manipulation/modify_6228_long_shot3.mp4" type="video/mp4">
+              </video>
+            </td>
+            <td align="right" style="padding-left: 20px;"><video width="200" height="200" controls="" controlslist="nodownload" style="border:1.5px solid dodgerblue;">
+            	<source src="./results/mugen/manipulation/groundtruth_3399.mp4" type="video/mp4">
+                </video>
+            </td>
+			<td align="right" style="padding-left: 3px;"><video width="200" height="200" controls="" controlslist="nodownload" style="border:1.5px solid orangered;">
+				<source src="./results/mugen/manipulation/modify_3399_long_shot3.mp4" type="video/mp4">
+			  </video>
+		  </td>
+        </tr>
+		<tr>
+			<td colspan="2" width="200" valign="middle" halign="middle" align="center">Mugen jumps down, and <br> <span style="color: dodgerblue;">killed by</span>  / <span style="color: orangered;">jumps over</span> a bee</td>
+			<td colspan="2" width="400" valign="middle" halign="middle" align="center">Mugen jumps up to the left to a platform , and <br> <span style="color: dodgerblue;"> killed by </span>  <span style="color: orangered;"> / kills </span> a Slimeblock </td>
+		</tr>
+	</table>
+	<br>
+	<table align = "center">
+		<tr>
+            <td align="left" style="padding-left: 3px;"><video width="200" height="200" controls="" controlslist="nodownload" style="border:1.5px solid dodgerblue;">
+            	<source src="./results/mugen/manipulation/groundtruth_11795.mp4" type="video/mp4">
+              </video>
+            </td>
+            <td align="left" style="padding-left: 3px;"><video width="200" height="200" controls="" controlslist="nodownload"  style="border:1.5px solid orangered;">
+                <source src="./results/mugen/manipulation/modify_11795_long_shot3.mp4" type="video/mp4">
+              </video>
+            </td>
+            <td align="right" style="padding-left: 20px;"><video width="200" height="200" controls="" controlslist="nodownload" style="border:1.5px solid dodgerblue;">
+            	<source src="./results/mugen/manipulation/groundtruth_8085.mp4" type="video/mp4">
+                </video>
+            </td>
+			<td align="right" style="padding-left: 3px;"><video width="200" height="200" controls="" controlslist="nodownload" style="border:1.5px solid orangered;">
+				<source src="./results/mugen/manipulation/modify_8085_long_shot3.mp4" type="video/mp4">
+			  </video>
+		  </td>
+        </tr>
+		<tr>
+			<td colspan="2" width="400" valign="middle" halign="middle" align="center">Mugen jumps down to the left to a platform and <span style="color: dodgerblue;"> killed by </span> / <span style="color: orangered;"> jumps over </span> a Slimeblue </td>
+			<td colspan="2" width="400" valign="middle" halign="middle" align="center">Mugen walks to the right, and jumps to the right and <span style="color: dodgerblue;"> kills </span>  / <span style="color: orangered;"> killed by </span> a Wormpink</td>
+		</tr>
+	</table>
+</center>
+<br>
+<br>
+</section>
+<section id="abalation" class="bg-light">
+<br>
+<br>
+<center>
+	<center><h1> Ablation experiment on the VQGAN padding</h1></center>
+	<div class="large-12 columns">
+	<h5><center>Randomly selected videos with 1024 frames and 128x128 resolution generated by Vanilla Video VQGAN with zero paddings.</center></h5>
+	</div>
+	<br>
+	<hr>
+	<table align = "center" width="800">
+		<tr><td  colspan="4" width="800" valign="middle" halign="middle" align="center">
+			<br>
+            UCF-101
+        </td></tr>
+		<tr><td colspan="4">
+            <video width="1000" height="122" controls="" controlslist="nodownload">
+                    <source src="./results/ucf101/ucf101_long_1024_vanilla_shown.mp4" type="video/mp4">
+        </video>
+        </td></tr>
+		<tr><td  colspan="4" width="800" valign="middle" halign="middle" align="center">
+			<br>
+            Sky Time-lapse
+        </td></tr>
+		<tr><td colspan="4">
+            <video width="1000" height="122" controls="" controlslist="nodownload">
+                    <source src="./results/sky/sky_long_1024_vanilla_shown.mp4" type="video/mp4">
+        </video>
+        </td></tr>
+		<tr><td  colspan="4" width="800" valign="middle" halign="middle" align="center">
+			<br>
+            Taichi-HD
+        </td></tr>
+		<tr><td colspan="4">
+            <video width="1000" height="122" controls="" controlslist="nodownload">
+                    <source src="./results/taichi/taichi_long_1024_vanilla_shown.mp4" type="video/mp4">
+        </video>
+        </td></tr>
+	</table>
+</center>
+<br>
+	<script src="./assets/jquery-3.2.1.js.download"></script>
+    <script src="./assets/jquery.event.move.js.download"></script>
+    <script src="./assets/jquery.twentytwenty.js.download"></script>
+    <script>
+    $(function(){
+      $(".twentytwenty-container[data-orientation!='vertical']").twentytwenty({default_offset_pct: 0.7});
+      $(".twentytwenty-container[data-orientation='vertical']").twentytwenty({default_offset_pct: 0.3, orientation: 'vertical'});
+    });
+  </script>
+
+	<style type="text/css">
+		.container {
+			background-color: #FBFBFC;
+		}
+		.teaser-img {
+			margin-top: 5px;
+			margin-bottom: 5px;
+		}
+		.img-responsive {
+			margin: auto;
+		}
+		.comparison-table {
+			table-layout: fixed;
+				word-wrap: break-word;
+		}
+		.comparison-table th {
+			text-align: center;
+		}
+		.disabled{
+		    pointer-events:none;
+		    opacity:0.7;
+		}
+	</style>
+
+	<script type="text/javascript">
+	var currentViewList = ["digan", "mocoganhd", "ccvs", "base", "hierarchical"];
+	var currentView = "digan";
+
+	function ChangeDataset(){
+
+		var dataset = document.getElementById("dataset-select").value.split(" ")[0];
+		if(dataset=='ucf101'){
+			$('#tab1').removeClass("disabled");
+			$('#tab2').removeClass("disabled");
+			document.getElementById("dataset_link").innerHTML = "<a href='https://www.crcv.ucf.edu/data/UCF101.php'>[UCF-101 (Soomro et al. 2012)] dataset link</a>";
+		}
+		if(dataset=='sky'){
+			$('#tab1').removeClass("disabled");
+			$('#tab2').addClass("disabled");
+			document.getElementById("dataset_link").innerHTML = "<a href='https://github.com/weixiong-ur/mdgan'>[Sky Time-lapse (Xiong et al. 2018)] dataset link</a>";
+		}
+		if(dataset=='taichi'){
+			$('#tab1').addClass("disabled");
+			$('#tab2').addClass("disabled");
+			document.getElementById("dataset_link").innerHTML = "<a href='https://github.com/AliaksandrSiarohin/first-order-model/blob/master/data/taichi-loading/README.md'>[Taichi-HD (Siarohin et al. 2019)] dataset link</a>";
+		}
+		
+		ChangeVideo();
+	}
+
+	function ChangeVideo(){
+		
+		var dataset = document.getElementById("dataset-select").value.split(" ")[0];
+		
+		var dataset_folder = "";
+		if(dataset=='ucf101'){dataset_folder = "ucf101";}
+		if(dataset=='sky'){dataset_folder = "sky";}
+		if(dataset=='taichi'){dataset_folder = "taichi";}
+		
+		var videoB = document.getElementById('output_video');
+		videoB.src = "./results/"+dataset_folder+"/"+dataset_folder+"_long_1024_"+currentView+"_shown.mp4";
+		videoB.play();
+	}
+
+	function ChangeCurrentView(idx){
+	    if(idx == 0){
+			document.getElementById("method_author").innerHTML = "Sihyun Yu, Jihoon Tack, Sangwoo Mo, Hyunsu Kim, Junho Kim, Jung-Woo Ha, and Jinwoo Shin";
+			document.getElementById("method_title").innerHTML = "Generating Videos with Dynamics-aware Implicit Generative Adversarial Networks";
+			document.getElementById("method_publication").innerHTML = "ICLR, 2022";
+			document.getElementById("code_link").innerHTML = "<a href='https://sihyun-yu.github.io/digan/'>[DIGAN (Yu et al. 2022)] code link</a>";
+		}
+	  else if(idx == 1){
+			document.getElementById("method_author").innerHTML = "Yu Tian, Jian Ren, Menglei Chai, Kyle Olszewski, Xi Peng, Dimitris N. Metaxas, and Sergey Tulyakov";
+			document.getElementById("method_title").innerHTML = "A Good Image Generator Is What You Need for High-Resolution Video Synthesis";
+			document.getElementById("method_publication").innerHTML = "ICLR, 2021";
+			document.getElementById("code_link").innerHTML = "<a href='https://bluer555.github.io/MoCoGAN-HD/'>[DIGAN (Liu et al. 2021)] code link</a>";
+		}
+	  else if(idx == 2){
+			document.getElementById("method_author").innerHTML = "Guillaume Le Moing, Jean Ponce, and Cordelia Schmid";
+			document.getElementById("method_title").innerHTML = "CCVS: Context-aware Controllable Video Synthesis";
+			document.getElementById("method_publication").innerHTML = "NeurIPS, 2021";
+			document.getElementById("code_link").innerHTML = "<a href='https://16lemoing.github.io/ccvs/'>[CCVS (Moing et al. 2021)] code link</a>";
+		}
+	    else{
+			document.getElementById("method_author").innerHTML = "Songwei Ge, Thomas Hayes, Harry Yang, Xi Yin, Guan Pang, David Jacobs, Jia-Bin Huang, and Devi Parikh";
+			document.getElementById("method_title").innerHTML = "Long Video Generation with Time-Agnostic VQGAN and Time-Sensitive Transformer";
+			document.getElementById("method_publication").innerHTML = "In Submission";
+			document.getElementById("code_link").innerHTML = "Code Coming Soon";
+		}
+	    var li_list = document.getElementById("current-view-ul").children;
+		console.log(idx);
+		console.log(li_list);
+		for(i = 0; i < li_list.length; i++){
+			li_list[i].className = "flex-sm-fill text-sm-center nav-link";
+		}
+		li_list[idx].className = "flex-sm-fill text-sm-center nav-link active";
+		currentView = currentViewList[idx];
+		document.getElementById("output_canvas").style.display = 'block';
+		
+		ChangeDataset();
+		ChangeVideo();
+	}
+
+	</script>
+
+
+<div class="memorize_new_word_loading" style="display: none;"></div><div class="bv-shadow-dom bv-shadow-dom-fade_out"><div class="bv-shadow-dom-container"></div></div></body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html>
+
