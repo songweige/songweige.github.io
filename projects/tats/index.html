@@ -346,25 +346,25 @@
 					</form>
 					<h3 align="left"><strong>Method:&nbsp;</strong></h3>
 					<nav class="nav nav-tabs" id="current-view-ul">
-						<a class="flex-sm-fill text-sm-center nav-link active" id="tab0" href="javascript: void(0);" onclick="ChangeCurrentView(0);"><h5>[DIGAN (Yu et al. 2022)]</h5></a>
+						<a class="flex-sm-fill text-sm-center nav-link" id="tab0" href="javascript: void(0);" onclick="ChangeCurrentView(0);"><h5>[DIGAN (Yu et al. 2022)]</h5></a>
 						<a class="flex-sm-fill text-sm-center nav-link" id="tab1" href="javascript: void(0);" onclick="ChangeCurrentView(1);"><h5>[MoCoGAN-HD (Tian et al. 2021)]</h5></a>
 						<a class="flex-sm-fill text-sm-center nav-link" id="tab2" href="javascript: void(0);" onclick="ChangeCurrentView(2);"><h5>[CCVS (Moing et al. 2021)]</h5></a>
-						<a class="flex-sm-fill text-sm-center nav-link" id="tab3" href="javascript: void(0);" onclick="ChangeCurrentView(3);"><h5>[TATS-base (Ours)]</h5></a>
+						<a class="flex-sm-fill text-sm-center nav-link active" id="tab3" href="javascript: void(0);" onclick="ChangeCurrentView(3);"><h5>[TATS-base (Ours)]</h5></a>
 						<a class="flex-sm-fill text-sm-center nav-link" id="tab4" href="javascript: void(0);" onclick="ChangeCurrentView(4);"><h5>[TATS-hierarchical (Ours)]</h5></a>
 					</nav>
 				</div>
 				<br>
 				<center><h5 id="dataset_link"><a href="https://www.crcv.ucf.edu/data/UCF101.php">[UCF-101 (Soomro et al. 2012)] dataset link</a></h5></center>
-				<center><h5 id="method_author">Sihyun Yu, Jihoon Tack, Sangwoo Mo, Hyunsu Kim, Junho Kim, Jung-Woo Ha, and Jinwoo Shin</h5></center>
-				<center><h5 id="method_title" style="font-weight:bold">Generating Videos with Dynamics-aware Implicit Generative Adversarial Networks</h5></center>
-				<center><h5 id="method_publication">ICLR, 2022</h5></center>
-				<center><h5 id="code_link"><a href='https://sihyun-yu.github.io/digan/'>[DIGAN (Yu et al. 2022)] code link</a></h5></center>
+				<center><h5 id="method_author">Songwei Ge, Thomas Hayes, Harry Yang, Xi Yin, Guan Pang, David Jacobs, Jia-Bin Huang, and Devi Parikh</h5></center>
+				<center><h5 id="method_title" style="font-weight:bold">Long Video Generation with Time-Agnostic VQGAN and Time-Sensitive Transformer</h5></center>
+				<center><h5 id="method_publication">In Submission</h5></center>
+				<center><h5 id="code_link">Code Coming Soon</h5></center>
 	    		<br>
 			</div>
 			<div class="large-12 columns" style="margin-top: 0.1em" id="output_canvas">
 			  <div class="mx-auto">
                 <video id="output_video" width="1000" onended="this.currentTime = 0; this.play();" controls="" autoplay="" muted="">				
-				    <source src="./results/ucf101/ucf101_long_1024_digan_shown.mp4" type="video/mp4">
+				    <source src="./results/ucf101/ucf101_long_1024_base_shown.mp4" type="video/mp4">
 				</video>
 			  </div>
 			</div>
@@ -449,15 +449,15 @@
             </td>
         </tr>
         <tr>
-            <td><video width="350" height="350" controls="" controlslist="nodownload">
+            <td><video width="350" height="350" controls="" loop="true" controlslist="nodownload">
                 <source src="./results/ucf101/ucf101_short_diversity_shown.mp4" type="video/mp4">
               </video>
             </td>
-            <td><video width="350" height="350" controls="" style="padding-left: 10px;" controlslist="nodownload">
+            <td><video width="350" height="350" controls="" loop="true" style="padding-left: 10px;" controlslist="nodownload">
                 <source src="./results/sky/sky_short_diversity_shown.mp4" type="video/mp4">
               </video>
             </td>
-            <td><video width="350" height="350" controls="" style="padding-left: 10px;" controlslist="nodownload">
+            <td><video width="350" height="350" controls="" loop="true" style="padding-left: 10px;" controlslist="nodownload">
                   <source src="./results/taichi/taichi_short_diversity_shown.mp4" type="video/mp4">
                 </video>
             </td>
@@ -580,7 +580,7 @@
 <div class="content-block-wrapper">
 <div class="content-block"><div class="bibtex">
 <pre align="left" class="citation">@article{ge2022long,
-  author    = {Songwei Ge and Thomas Hayes and Harry Yang and Xi Yin and Guan Pang and David Jacobs and Jia-Bin Huang and Devi Parikh},
+  author    = {Ge, Songwei and Hayes, Thomas and Yang, Harry and Yin, Xi and Pang, Guan and Jacobs, David and Huang, Jia-Bin and Parikh, Devi},
   title     = {Long Video Generation with Time-Agnostic VQGAN and Time-Sensitive Transformer},
   year      = {2022},
   journal   = {arXiv preprint arXiv:},
