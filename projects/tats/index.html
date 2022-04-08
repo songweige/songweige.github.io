@@ -265,15 +265,20 @@
 	      src="https://www.youtube.com/embed/WZj7vW2mTJo?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
 	      </iframe>
 	      </p>
+		<h5><center>Please check the video <a href="https://www.cs.umd.edu/~songweig/tats/tats-overview.mp4">here</a> if the video player above doesn't work for you.</center></h5>
 	    </div>
 	  </div>
 	</div>
+	<div style="line-height:80%;">
+	    <br>
+	</div>	
 	<table align=center width=850px>
 		<tr>
 			<td width=850px>
 				<center>
 					<table width="980" height="24" border="0" cellspacing="1" cellpadding="3">
 					<td>
+					<center><h1>Abstract </h1></center>
 					<div style="text-align: justify">
 					<p>Videos are created to express emotion, exchange information, and share experiences. Video synthesis has intrigued researchers for a long time. Despite the rapid progress driven by advances in visual synthesis, most existing studies focus on improving the frames' quality and the transitions between them, while little progress has been made in generating longer videos. In this paper, we present a method that builds on 3D-VQGAN and transformers to generate videos with thousands of frames. Our evaluation shows that our model trained on 16-frame video clips from standard benchmarks such as UCF-101, Sky Time-lapse, and Taichi-HD datasets can generate diverse, coherent, and high-quality long videos. We also showcase conditional extensions of our approach for generating meaningful long videos by incorporating temporal information with text and audio.</p>
 					</div>
@@ -297,26 +302,29 @@
 	    <br>
 	</div>	
     <nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
-		<a class="navbar-brand js-scroll-trigger" href="#page-top">Results Navigation:</a>
+		<a class="navbar-brand js-scroll-trigger" href="#page-top">Generation Results Navigation:</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 		</button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#uncond-long">Unconditional+Long</a>
+              <a class="nav-link js-scroll-trigger" href="#uncond-long">Unconditional Long Video</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#cond-long">Conditional+Long</a>
+              <a class="nav-link js-scroll-trigger" href="#cond-long">Conditional Long Video</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#uncond-short">Unconditional+Short</a>
+              <a class="nav-link js-scroll-trigger" href="#uncond-short">Unconditional Short Video</a>
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#manipulation">Video Manipulation</a>
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#abalation">Abaltion w/ Zero Padding</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#high-res">High-Resolution Long Video</a>
             </li>
           </ul>
         </div>
@@ -578,6 +586,47 @@
         </video>
         </td></tr>
 	</table>
+</center>
+<br>
+<br>
+</section>
+
+<section id="high-res">
+<br>
+<br>
+<center>
+	<center><h1>High-Resolution Long Video Generation Results </h1></center>
+	<div class="large-12 columns">
+	<h5><center>High resolution (256x256) and long (1024 frames) video generation results on the Sky Time-lapse (fps=15) dataset by applying sliding window both spatially and temporally. </center></h5>
+	</div>
+	<br>
+	<hr>
+	<br>
+    <table align = "center" width="1240px">
+        <tr>
+            <td>
+            	<video width="256" height="256" controls="" controlslist="nodownload">
+               		<source src="./results/sky/sky_256_4.mp4" type="video/mp4">
+              	</video>
+            </td>
+            <td>
+            	<video width="256" height="256" controls="" controlslist="nodownload">
+               		<source src="./results/sky/sky_256_1.mp4" type="video/mp4">
+              	</video>
+            </td>
+            <td>
+            	<video width="256" height="256" controls="" controlslist="nodownload">
+               		<source src="./results/sky/sky_256_3.mp4" type="video/mp4">
+              	</video>
+            </td>
+            <td>
+            	<video width="256" height="256" controls="" controlslist="nodownload">
+               		<source src="./results/sky/sky_256_2.mp4" type="video/mp4">
+              	</video>
+            </td>
+        </tr>
+    </table>
+	<br>
 </center>
 <br>
 <br>
